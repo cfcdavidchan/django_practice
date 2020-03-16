@@ -1,0 +1,1535 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.5 (Ubuntu 11.5-0ubuntu0.19.04.1)
+-- Dumped by pg_dump version 11.5 (Ubuntu 11.5-0ubuntu0.19.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO locallibrary;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO locallibrary;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO locallibrary;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO locallibrary;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO locallibrary;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO locallibrary;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO locallibrary;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO locallibrary;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO locallibrary;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO locallibrary;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO locallibrary;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO locallibrary;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- Name: catalog_author; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.catalog_author (
+    id integer NOT NULL,
+    first_name character varying(100) NOT NULL,
+    last_name character varying(100) NOT NULL,
+    date_of_birth date,
+    date_of_death date
+);
+
+
+ALTER TABLE public.catalog_author OWNER TO locallibrary;
+
+--
+-- Name: catalog_author_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.catalog_author_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.catalog_author_id_seq OWNER TO locallibrary;
+
+--
+-- Name: catalog_author_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.catalog_author_id_seq OWNED BY public.catalog_author.id;
+
+
+--
+-- Name: catalog_book; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.catalog_book (
+    id integer NOT NULL,
+    title character varying(200) NOT NULL,
+    summary text NOT NULL,
+    isbn character varying(13) NOT NULL,
+    author_id integer,
+    "Language_id" integer
+);
+
+
+ALTER TABLE public.catalog_book OWNER TO locallibrary;
+
+--
+-- Name: catalog_book_genre; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.catalog_book_genre (
+    id integer NOT NULL,
+    book_id integer NOT NULL,
+    genre_id integer NOT NULL
+);
+
+
+ALTER TABLE public.catalog_book_genre OWNER TO locallibrary;
+
+--
+-- Name: catalog_book_genre_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.catalog_book_genre_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.catalog_book_genre_id_seq OWNER TO locallibrary;
+
+--
+-- Name: catalog_book_genre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.catalog_book_genre_id_seq OWNED BY public.catalog_book_genre.id;
+
+
+--
+-- Name: catalog_book_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.catalog_book_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.catalog_book_id_seq OWNER TO locallibrary;
+
+--
+-- Name: catalog_book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.catalog_book_id_seq OWNED BY public.catalog_book.id;
+
+
+--
+-- Name: catalog_bookinstance; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.catalog_bookinstance (
+    id uuid NOT NULL,
+    imprint character varying(200) NOT NULL,
+    due_back date,
+    status character varying(1) NOT NULL,
+    book_id integer
+);
+
+
+ALTER TABLE public.catalog_bookinstance OWNER TO locallibrary;
+
+--
+-- Name: catalog_genre; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.catalog_genre (
+    id integer NOT NULL,
+    name character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.catalog_genre OWNER TO locallibrary;
+
+--
+-- Name: catalog_genre_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.catalog_genre_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.catalog_genre_id_seq OWNER TO locallibrary;
+
+--
+-- Name: catalog_genre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.catalog_genre_id_seq OWNED BY public.catalog_genre.id;
+
+
+--
+-- Name: catalog_language; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.catalog_language (
+    id integer NOT NULL,
+    name character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.catalog_language OWNER TO locallibrary;
+
+--
+-- Name: catalog_language_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.catalog_language_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.catalog_language_id_seq OWNER TO locallibrary;
+
+--
+-- Name: catalog_language_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.catalog_language_id_seq OWNED BY public.catalog_language.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO locallibrary;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO locallibrary;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO locallibrary;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO locallibrary;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO locallibrary;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: locallibrary
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO locallibrary;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: locallibrary
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: locallibrary
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO locallibrary;
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: catalog_author id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_author ALTER COLUMN id SET DEFAULT nextval('public.catalog_author_id_seq'::regclass);
+
+
+--
+-- Name: catalog_book id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_book ALTER COLUMN id SET DEFAULT nextval('public.catalog_book_id_seq'::regclass);
+
+
+--
+-- Name: catalog_book_genre id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_book_genre ALTER COLUMN id SET DEFAULT nextval('public.catalog_book_genre_id_seq'::regclass);
+
+
+--
+-- Name: catalog_genre id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_genre ALTER COLUMN id SET DEFAULT nextval('public.catalog_genre_id_seq'::regclass);
+
+
+--
+-- Name: catalog_language id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_language ALTER COLUMN id SET DEFAULT nextval('public.catalog_language_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add user	4	add_user
+14	Can change user	4	change_user
+15	Can delete user	4	delete_user
+16	Can view user	4	view_user
+17	Can add content type	5	add_contenttype
+18	Can change content type	5	change_contenttype
+19	Can delete content type	5	delete_contenttype
+20	Can view content type	5	view_contenttype
+21	Can add session	6	add_session
+22	Can change session	6	change_session
+23	Can delete session	6	delete_session
+24	Can view session	6	view_session
+25	Can add language	7	add_language
+26	Can change language	7	change_language
+27	Can delete language	7	delete_language
+28	Can view language	7	view_language
+29	Can add author	8	add_author
+30	Can change author	8	change_author
+31	Can delete author	8	delete_author
+32	Can view author	8	view_author
+33	Can add book instance	9	add_bookinstance
+34	Can change book instance	9	change_bookinstance
+35	Can delete book instance	9	delete_bookinstance
+36	Can view book instance	9	view_bookinstance
+37	Can add genre	10	add_genre
+38	Can change genre	10	change_genre
+39	Can delete genre	10	delete_genre
+40	Can view genre	10	view_genre
+41	Can add book	11	add_book
+42	Can change book	11	change_book
+43	Can delete book	11	delete_book
+44	Can view book	11	view_book
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$180000$K5ZuvOeO6mVG$e6F06x2tsfckRf/KCZ/XJ5CZwS2o056Na6fBpJNmL0g=	2020-03-17 04:39:29.793255+08	t	cfcdavidchan				t	t	2020-03-17 03:40:58.641146+08
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: catalog_author; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.catalog_author (id, first_name, last_name, date_of_birth, date_of_death) FROM stdin;
+1	JRR	Tolkien	1892-01-03	1973-09-02
+2	Jane	Austen	1775-12-16	1817-07-18
+3	Philip	Pullman	1946-10-19	\N
+4	Douglas	Adams	1952-03-11	2001-05-11
+5	CS	Lewis	1898-11-29	1963-11-22
+6	Albert	Camus	1913-11-07	1960-01-04
+7	Richard	Martin	1948-09-20	\N
+8	Patrick	Rothfuss	1973-06-06	\N
+9	Joe	Abercrombie	1974-12-31	\N
+10	Nai'an	Shi	\N	\N
+11	Cheng'en	Wu	\N	\N
+12	Franz	Kafka	1883-07-03	1924-06-03
+\.
+
+
+--
+-- Data for Name: catalog_book; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.catalog_book (id, title, summary, isbn, author_id, "Language_id") FROM stdin;
+1	The Lord of the Rings	The Lord of the Rings is an epic[1] high-fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien's 1937 fantasy novel The Hobbit, but eventually developed into a much larger work. Written in stages between 1937 and 1949, The Lord of the Rings is one of the best-selling novels ever written, with over 150 million copies sold.[2]\r\n\r\nThe title of the novel refers to the story's main antagonist, the Dark Lord Sauron,[a] who had in an earlier age created the One Ring to rule the other Rings of Power as the ultimate weapon in his campaign to conquer and rule all of Middle-earth. From quiet beginnings in the Shire, a hobbit land not unlike the English countryside, the story ranges across Middle-earth, following the course of the War of the Ring through the eyes of its characters, most notably the hobbits Frodo, Sam, Merry and Pippin.	9780261103252	1	1
+2	Pride and Prejudice	Pride and Prejudice is a romantic novel of manners written by Jane Austen in 1813. The novel follows the character development of Elizabeth Bennet, the dynamic protagonist of the book who learns about the repercussions of hasty judgments and comes to appreciate the difference between superficial goodness and actual goodness. Its humour lies in its honest depiction of manners, education, marriage, and money during the Regency era in Great Britain.	9780141439518	2	1
+3	His Dark Materials	His Dark Materials is a trilogy of fantasy novels by Philip Pullman consisting of Northern Lights (1995) (published as The Golden Compass in North America), The Subtle Knife (1997), and The Amber Spyglass (2000). It follows the coming of age of two children, Lyra Belacqua and Will Parry, as they wander through a series of parallel universes. The novels have won a number of awards, including the Carnegie Medal in 1995 for Northern Lights and the 2001 Whitbread Book of the Year for The Amber Spyglass. In 2003, the trilogy was ranked third on the BBC’s The Big Read poll.	9781407135595	3	1
+4	The Hitchhiker's Guide to the Galaxy	The Hitchhiker's Guide to the Galaxy is the first of six books in the Hitchhiker's Guide to the Galaxy comedy science fiction "trilogy" by Douglas Adams. The novel is an adaptation of the first four parts of Adams' radio series of the same name. The novel was first published in London on 12 October 1979.[2] It sold 250,000 copies in the first three months.[	0330258648	4	1
+5	The Lion, the Witch and the Wardrobe	The Lion, the Witch and the Wardrobe is a fantasy novel for children by C. S. Lewis, published by Geoffrey Bles in 1950. It is the first published and best known of seven novels in The Chronicles of Narnia (1950–1956). Among all the author's books, it is also the most widely held in libraries.[2] Although it was originally the first of The Chronicles of Narnia, it is volume two in recent editions that are sequenced by the stories' chronology. Like the other Chronicles, it was illustrated by Pauline Baynes, and her work has been retained in many later editions.	9780064404990	5	1
+6	The Stranger	L'Étranger (French: [l‿e.tʁɑ̃.ʒe]) is a 1942 novel by French author Albert Camus. Its theme and outlook are often cited as examples of Camus's philosophy of the absurd and existentialism, though Camus personally rejected the latter label.\r\n\r\nThe title character is Meursault, an indifferent French Algerian described as "a citizen of France domiciled in North Africa, a man of the Mediterranean, an homme du midi yet one who hardly partakes of the traditional Mediterranean culture".[1] He attends his mother's funeral. A few days later, he kills an Arab man in French Algiers, who was involved in a conflict with a friend. Meursault is tried and sentenced to death. The story is divided into two parts, presenting Meursault's first-person narrative view before and after the murder, respectively.	9780679720201	6	2
+7	A Game Of Thrones	A Game of Thrones is the first novel in A Song of Ice and Fire, a series of fantasy novels by the American author George R. R. Martin. It was first published on August 1, 1996. The novel won the 1997 Locus Award[2] and was nominated for both the 1997 Nebula Award[2] and the 1997 World Fantasy Award.[3] The novella Blood of the Dragon, comprising the Daenerys Targaryen chapters from the novel, won the 1997 Hugo Award for Best Novella. In January 2011, the novel became a New York Times Bestseller[4] and reached No. 1 on the list in July 2011.	9780553593716	7	1
+8	The Name Of The Wind	The Name of the Wind, also called The Kingkiller Chronicle: Day One, is a heroic fantasy novel written by American author Patrick Rothfuss. It is the first book in the ongoing fantasy trilogy The Kingkiller Chronicle, followed by The Wise Man's Fear. It was published on March 27, 2007 by DAW Books.	9780756404741	8	1
+9	The Blade Itself	The First Law is a fantasy series written by British author Joe Abercrombie. It consists of a trilogy, three stand-alone novels and a number of novellas set in the same world. Abercrombie has released A Little Hatred, the first book in a new trilogy set in the First Law world which is set after the 3rd stand alone novel and serves as a sequel to the original trilogy. [1]\r\n\r\nThe trilogy is published by Gollancz in the UK and Pyr in the United States. The stand-alone novels remain with Gollancz in the UK but will be published by Orbit Books in the United States.	9780316387316	9	1
+10	Water Margin	Water Margin (Chinese: 水滸傳; pinyin: Shuǐhǔ Zhuàn), also translated as Outlaws of the Marsh, Tale of the Marshes, All Men Are Brothers, Men of the Marshes or The Marshes of Mount Liang, is a 14th-century Chinese novel attributed to Shi Nai'an. Considered one of the Four Great Classical Novels of Chinese literature, the novel is written in vernacular Chinese rather than Classical Chinese.[1]\r\n\r\nThe story, set in the Song dynasty, tells of how a group of 108 outlaws gather at Mount Liang (or Liangshan Marsh) to form a sizable army before they are eventually granted amnesty by the government and sent on campaigns to resist foreign invaders and suppress rebel forces. It has introduced to readers many of the best-known characters in Chinese literature, such as Wu Song, Lin Chong and Lu Zhishen.	9780804840958	10	3
+11	Journey to the West	Journey to the West is a Chinese novel published in the 16th century during the Ming dynasty and attributed to Wu Cheng'en. It is one of the Four Great Classical Novels of Chinese literature. Part historical epic and part social satire, it is probably the most popular book in all of east Asia.[2] Arthur Waley's popular abridged translation, Monkey, is well known in English-speaking countries.\r\n\r\nThe novel is an extended account of the legendary pilgrimage of the Tang dynasty Buddhist monk Xuanzang who traveled to the "Western Regions", that is, Central Asia and India, to obtain Buddhist sacred texts (sūtras) and returned after many trials and much suffering. It retains the broad outline of Xuanzang's own account, Great Tang Records on the Western Regions, but the Ming dynasty novel adds elements from folk tales and the author's invention, that is, that Gautama Buddha gave this task to the monk (referred to as Tang Sanzang in the novel) and provided him w	9780226971506	11	3
+12	The Trial	The Trial is a novel written by Franz Kafka between 1914 and 1915 and published posthumously in 1925. One of his best-known works, it tells the story of Josef K., a man arrested and prosecuted by a remote, inaccessible authority, with the nature of his crime revealed neither to him nor to the reader. Heavily influenced by Dostoyevsky's Crime and Punishment and The Brothers Karamazov, Kafka even went so far as to call Dostoyevsky a blood relative.[2] Like Kafka's other novels, The Trial was never completed, although it does include a chapter which appears to bring the story to an intentionally abrupt ending.\r\n\r\nAfter Kafka's death in 1924 his friend and literary executor Max Brod edited the text for publication by Verlag Die Schmiede. The original manuscript is held at the Museum of Modern Literature, Marbach am Neckar, Germany. The first English language translation, by Willa and Edwin Muir, was publish	9781541276727	12	2
+\.
+
+
+--
+-- Data for Name: catalog_book_genre; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.catalog_book_genre (id, book_id, genre_id) FROM stdin;
+1	1	1
+2	1	2
+3	2	2
+4	3	4
+5	3	5
+6	4	6
+7	5	8
+8	5	7
+9	6	9
+10	7	1
+11	7	10
+12	8	1
+13	9	1
+14	10	11
+15	11	12
+16	11	13
+17	11	14
+18	11	15
+19	12	16
+20	12	17
+21	12	18
+22	12	19
+\.
+
+
+--
+-- Data for Name: catalog_bookinstance; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.catalog_bookinstance (id, imprint, due_back, status, book_id) FROM stdin;
+87f635be-bd64-4738-a7a9-269ea7ac78a8	HarperCollins Publishers Ltd	\N	a	1
+3cd442e4-8863-4d0e-a4ae-9ce2e3c1f23c	Penguin	\N	m	2
+5721de49-915e-47fa-84b2-e925aaf006f8	Everyman	\N	m	3
+e1924be5-f863-4179-b7fb-c2d7d2a657e4	BBC Physical Audio	\N	m	4
+31915028-45c0-4a1b-adce-60f5cff6b358	HarperCollins Publishers Ltd	2020-07-17	o	5
+1a0a92a5-4791-4e30-9219-bbce49a5b1e7	Gallimard	\N	r	6
+2c834693-8b9f-4506-90df-dd81d85420ec	Random House Books	\N	r	7
+d319edb4-dfd2-4f06-a1a9-f20a0b37e8c3	Gollancz	\N	r	8
+862bc276-1854-4636-a555-9ec343a73ea3	Gollancz	2020-07-19	o	9
+15a43807-9658-4d68-aec8-adb5c1c269c3	Periplus Editions (HK) Ltd	2020-05-22	o	10
+d5e60a6d-fb6d-4e53-bdc9-e27e2c58100a	Penguin Classics	\N	m	11
+b1dc448d-59ca-48f7-b1a5-dda45e693064	Verlag Die Schmiede	\N	r	12
+\.
+
+
+--
+-- Data for Name: catalog_genre; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.catalog_genre (id, name) FROM stdin;
+1	Fantasy
+2	Adventure
+3	Classic Regency novel
+4	High fantasy
+5	Science fantasy
+6	Comic science fiction
+7	Children's fantasy novel
+8	Christian literature
+9	Philosophical noverl
+10	Political novel
+11	Historical fiction
+12	Gods and demons fiction
+13	Chinese mythology
+14	fantasy
+15	adventure
+16	Philosophical fiction
+17	Dystopian fiction
+18	Absurdist fiction
+19	Paranoid fiction
+\.
+
+
+--
+-- Data for Name: catalog_language; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.catalog_language (id, name) FROM stdin;
+1	English
+2	French
+3	Chinese
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2020-03-17 04:15:00.081978+08	1	Author object (1)	1	[{"added": {}}]	8	1
+2	2020-03-17 04:16:06.296885+08	1	Fantasy	1	[{"added": {}}]	10	1
+3	2020-03-17 04:16:15.857618+08	2	Adventure	1	[{"added": {}}]	10	1
+4	2020-03-17 04:16:23.122368+08	1	English	1	[{"added": {}}]	7	1
+5	2020-03-17 04:17:08.334271+08	1	The Lord of the Rings	1	[{"added": {}}]	11	1
+6	2020-03-17 04:18:05.7808+08	1	The Lord of the Rings	2	[{"changed": {"fields": ["ISBN"]}}]	11	1
+7	2020-03-17 04:20:16.337107+08	2	Author object (2)	1	[{"added": {}}]	8	1
+8	2020-03-17 04:20:59.349789+08	3	Classic Regency novel	1	[{"added": {}}]	10	1
+9	2020-03-17 04:21:42.695955+08	2	Pride and Prejudice	1	[{"added": {}}]	11	1
+10	2020-03-17 04:22:41.985868+08	3	Author object (3)	1	[{"added": {}}]	8	1
+11	2020-03-17 04:22:54.201631+08	3	Author object (3)	2	[]	8	1
+12	2020-03-17 04:23:50.608805+08	4	High fantasy	1	[{"added": {}}]	10	1
+13	2020-03-17 04:23:57.365511+08	5	Science fantasy	1	[{"added": {}}]	10	1
+14	2020-03-17 04:24:23.757036+08	3	His Dark Materials	1	[{"added": {}}]	11	1
+15	2020-03-17 04:41:32.591161+08	4	Author object (4)	1	[{"added": {}}]	8	1
+16	2020-03-17 04:42:20.874315+08	6	Comic science fiction	1	[{"added": {}}]	10	1
+17	2020-03-17 04:42:26.158541+08	4	The Hitchhiker's Guide to the Galaxy	1	[{"added": {}}]	11	1
+18	2020-03-17 04:55:42.760461+08	5	Lewis, CS	1	[{"added": {}}]	8	1
+19	2020-03-17 04:56:24.860187+08	7	Children's fantasy novel	1	[{"added": {}}]	10	1
+20	2020-03-17 04:56:34.533667+08	8	Christian literature	1	[{"added": {}}]	10	1
+21	2020-03-17 04:56:57.310165+08	5	The Lion, the Witch and the Wardrobe	1	[{"added": {}}]	11	1
+22	2020-03-17 04:58:17.523005+08	6	Camus, Albert	1	[{"added": {}}]	8	1
+23	2020-03-17 04:58:56.628586+08	9	Philosophical noverl	1	[{"added": {}}]	10	1
+24	2020-03-17 04:59:02.480017+08	2	French	1	[{"added": {}}]	7	1
+25	2020-03-17 04:59:03.708271+08	6	The Stranger	1	[{"added": {}}]	11	1
+26	2020-03-17 05:00:25.291624+08	7	Martin, Richard	1	[{"added": {}}]	8	1
+27	2020-03-17 05:01:05.766106+08	10	Political novel	1	[{"added": {}}]	10	1
+28	2020-03-17 05:01:10.462565+08	7	A Game Of Thrones	1	[{"added": {}}]	11	1
+29	2020-03-17 05:02:56.962884+08	8	Rothfuss, Patrick	1	[{"added": {}}]	8	1
+30	2020-03-17 05:02:59.043499+08	8	The Name Of The Wind	1	[{"added": {}}]	11	1
+31	2020-03-17 05:04:13.439869+08	9	Abercrombie, Joe	1	[{"added": {}}]	8	1
+32	2020-03-17 05:04:21.236366+08	9	The Blade Itself	1	[{"added": {}}]	11	1
+33	2020-03-17 05:05:45.348629+08	10	Shi, Nai'an	1	[{"added": {}}]	8	1
+34	2020-03-17 05:06:38.90805+08	11	Historical fiction	1	[{"added": {}}]	10	1
+35	2020-03-17 05:06:43.365563+08	3	Chinese	1	[{"added": {}}]	7	1
+36	2020-03-17 05:06:45.029771+08	10	Water Margin	1	[{"added": {}}]	11	1
+37	2020-03-17 05:07:50.640858+08	12	Gods and demons fiction	1	[{"added": {}}]	10	1
+38	2020-03-17 05:07:58.587535+08	13	Chinese mythology	1	[{"added": {}}]	10	1
+39	2020-03-17 05:08:10.039279+08	14	fantasy	1	[{"added": {}}]	10	1
+40	2020-03-17 05:08:16.253921+08	15	adventure	1	[{"added": {}}]	10	1
+41	2020-03-17 05:09:06.06313+08	11	Wu, Cheng'en	1	[{"added": {}}]	8	1
+42	2020-03-17 05:09:08.160942+08	11	Journey to the West	1	[{"added": {}}]	11	1
+43	2020-03-17 05:11:03.778666+08	12	Kafka, Franz	1	[{"added": {}}]	8	1
+44	2020-03-17 05:11:35.072245+08	16	Philosophical fiction	1	[{"added": {}}]	10	1
+45	2020-03-17 05:11:47.102541+08	17	Dystopian fiction	1	[{"added": {}}]	10	1
+46	2020-03-17 05:11:54.336542+08	18	Absurdist fiction	1	[{"added": {}}]	10	1
+47	2020-03-17 05:12:00.000051+08	19	Paranoid fiction	1	[{"added": {}}]	10	1
+48	2020-03-17 05:12:03.14868+08	12	The Trial	1	[{"added": {}}]	11	1
+49	2020-03-17 05:23:36.199853+08	87f635be-bd64-4738-a7a9-269ea7ac78a8	BookInstance object (87f635be-bd64-4738-a7a9-269ea7ac78a8)	1	[{"added": {}}]	9	1
+50	2020-03-17 05:24:14.303843+08	3cd442e4-8863-4d0e-a4ae-9ce2e3c1f23c	BookInstance object (3cd442e4-8863-4d0e-a4ae-9ce2e3c1f23c)	1	[{"added": {}}]	9	1
+51	2020-03-17 05:24:35.750454+08	5721de49-915e-47fa-84b2-e925aaf006f8	BookInstance object (5721de49-915e-47fa-84b2-e925aaf006f8)	1	[{"added": {}}]	9	1
+52	2020-03-17 05:25:05.761525+08	e1924be5-f863-4179-b7fb-c2d7d2a657e4	BookInstance object (e1924be5-f863-4179-b7fb-c2d7d2a657e4)	1	[{"added": {}}]	9	1
+53	2020-03-17 05:26:03.942913+08	31915028-45c0-4a1b-adce-60f5cff6b358	BookInstance object (31915028-45c0-4a1b-adce-60f5cff6b358)	1	[{"added": {}}]	9	1
+54	2020-03-17 05:27:04.062379+08	1a0a92a5-4791-4e30-9219-bbce49a5b1e7	BookInstance object (1a0a92a5-4791-4e30-9219-bbce49a5b1e7)	1	[{"added": {}}]	9	1
+55	2020-03-17 05:27:54.470064+08	2c834693-8b9f-4506-90df-dd81d85420ec	BookInstance object (2c834693-8b9f-4506-90df-dd81d85420ec)	1	[{"added": {}}]	9	1
+56	2020-03-17 05:28:24.25024+08	d319edb4-dfd2-4f06-a1a9-f20a0b37e8c3	BookInstance object (d319edb4-dfd2-4f06-a1a9-f20a0b37e8c3)	1	[{"added": {}}]	9	1
+57	2020-03-17 05:29:11.894461+08	862bc276-1854-4636-a555-9ec343a73ea3	BookInstance object (862bc276-1854-4636-a555-9ec343a73ea3)	1	[{"added": {}}]	9	1
+58	2020-03-17 05:29:49.126953+08	15a43807-9658-4d68-aec8-adb5c1c269c3	BookInstance object (15a43807-9658-4d68-aec8-adb5c1c269c3)	1	[{"added": {}}]	9	1
+59	2020-03-17 05:30:52.975668+08	d5e60a6d-fb6d-4e53-bdc9-e27e2c58100a	BookInstance object (d5e60a6d-fb6d-4e53-bdc9-e27e2c58100a)	1	[{"added": {}}]	9	1
+60	2020-03-17 05:31:38.7362+08	b1dc448d-59ca-48f7-b1a5-dda45e693064	BookInstance object (b1dc448d-59ca-48f7-b1a5-dda45e693064)	1	[{"added": {}}]	9	1
+61	2020-03-17 05:58:29.264108+08	12	The Trial	2	[{"added": {"name": "book instance", "object": "BookInstance object (e355c466-a1b6-424d-a24b-7a0e049e6fce)"}}]	11	1
+62	2020-03-17 05:58:51.968326+08	e355c466-a1b6-424d-a24b-7a0e049e6fce	BookInstance object (e355c466-a1b6-424d-a24b-7a0e049e6fce)	3		9	1
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	catalog	language
+8	catalog	author
+9	catalog	bookinstance
+10	catalog	genre
+11	catalog	book
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2020-03-09 20:10:52.717655+08
+2	auth	0001_initial	2020-03-09 20:10:52.740724+08
+3	admin	0001_initial	2020-03-09 20:10:52.761375+08
+4	admin	0002_logentry_remove_auto_add	2020-03-09 20:10:52.769584+08
+5	admin	0003_logentry_add_action_flag_choices	2020-03-09 20:10:52.775838+08
+6	contenttypes	0002_remove_content_type_name	2020-03-09 20:10:52.8015+08
+7	auth	0002_alter_permission_name_max_length	2020-03-09 20:10:52.806828+08
+8	auth	0003_alter_user_email_max_length	2020-03-09 20:10:52.812749+08
+9	auth	0004_alter_user_username_opts	2020-03-09 20:10:52.818787+08
+10	auth	0005_alter_user_last_login_null	2020-03-09 20:10:52.826243+08
+11	auth	0006_require_contenttypes_0002	2020-03-09 20:10:52.827504+08
+12	auth	0007_alter_validators_add_error_messages	2020-03-09 20:10:52.83318+08
+13	auth	0008_alter_user_username_max_length	2020-03-09 20:10:52.840032+08
+14	auth	0009_alter_user_last_name_max_length	2020-03-09 20:10:52.846798+08
+15	auth	0010_alter_group_name_max_length	2020-03-09 20:10:52.85231+08
+16	auth	0011_update_proxy_permissions	2020-03-09 20:10:52.857434+08
+17	sessions	0001_initial	2020-03-09 20:10:52.860833+08
+18	catalog	0001_initial	2020-03-13 17:45:25.004553+08
+19	catalog	0002_auto_20200317_0337	2020-03-17 03:37:49.847483+08
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: locallibrary
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+ii76ehipke2copmlgh6g6ojgd43k7vhd	ZmZhNjUyNTA0YzdlNTc1MjhkZmIyZTMwNjQxMTA1YmRiYmYxN2UzYzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIyYTEwZGM0NzE0OGRkNWNhODEzZGU0ZGI1YjcyMTMwYmMwMWU5ZTJkIn0=	2020-03-31 03:41:53.34674+08
+gsmz1tj9atvz7yc8r1b50brksyxwpm45	ZmZhNjUyNTA0YzdlNTc1MjhkZmIyZTMwNjQxMTA1YmRiYmYxN2UzYzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIyYTEwZGM0NzE0OGRkNWNhODEzZGU0ZGI1YjcyMTMwYmMwMWU5ZTJkIn0=	2020-03-31 04:39:29.794651+08
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 44, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: catalog_author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.catalog_author_id_seq', 12, true);
+
+
+--
+-- Name: catalog_book_genre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.catalog_book_genre_id_seq', 22, true);
+
+
+--
+-- Name: catalog_book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.catalog_book_id_seq', 12, true);
+
+
+--
+-- Name: catalog_genre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.catalog_genre_id_seq', 19, true);
+
+
+--
+-- Name: catalog_language_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.catalog_language_id_seq', 3, true);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 62, true);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 11, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: locallibrary
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 19, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: catalog_author catalog_author_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_author
+    ADD CONSTRAINT catalog_author_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: catalog_book_genre catalog_book_genre_book_id_genre_id_d15f6922_uniq; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_book_genre
+    ADD CONSTRAINT catalog_book_genre_book_id_genre_id_d15f6922_uniq UNIQUE (book_id, genre_id);
+
+
+--
+-- Name: catalog_book_genre catalog_book_genre_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_book_genre
+    ADD CONSTRAINT catalog_book_genre_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: catalog_book catalog_book_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_book
+    ADD CONSTRAINT catalog_book_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: catalog_bookinstance catalog_bookinstance_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_bookinstance
+    ADD CONSTRAINT catalog_bookinstance_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: catalog_genre catalog_genre_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_genre
+    ADD CONSTRAINT catalog_genre_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: catalog_language catalog_language_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_language
+    ADD CONSTRAINT catalog_language_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: catalog_book_Language_id_92bd299d; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX "catalog_book_Language_id_92bd299d" ON public.catalog_book USING btree ("Language_id");
+
+
+--
+-- Name: catalog_book_author_id_b0849980; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX catalog_book_author_id_b0849980 ON public.catalog_book USING btree (author_id);
+
+
+--
+-- Name: catalog_book_genre_book_id_e5a77c43; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX catalog_book_genre_book_id_e5a77c43 ON public.catalog_book_genre USING btree (book_id);
+
+
+--
+-- Name: catalog_book_genre_genre_id_77d7ffde; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX catalog_book_genre_genre_id_77d7ffde ON public.catalog_book_genre USING btree (genre_id);
+
+
+--
+-- Name: catalog_bookinstance_book_id_69f93415; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX catalog_bookinstance_book_id_69f93415 ON public.catalog_bookinstance USING btree (book_id);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: locallibrary
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: catalog_book catalog_book_Language_id_92bd299d_fk_catalog_language_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_book
+    ADD CONSTRAINT "catalog_book_Language_id_92bd299d_fk_catalog_language_id" FOREIGN KEY ("Language_id") REFERENCES public.catalog_language(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: catalog_book catalog_book_author_id_b0849980_fk_catalog_author_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_book
+    ADD CONSTRAINT catalog_book_author_id_b0849980_fk_catalog_author_id FOREIGN KEY (author_id) REFERENCES public.catalog_author(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: catalog_book_genre catalog_book_genre_book_id_e5a77c43_fk_catalog_book_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_book_genre
+    ADD CONSTRAINT catalog_book_genre_book_id_e5a77c43_fk_catalog_book_id FOREIGN KEY (book_id) REFERENCES public.catalog_book(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: catalog_book_genre catalog_book_genre_genre_id_77d7ffde_fk_catalog_genre_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_book_genre
+    ADD CONSTRAINT catalog_book_genre_genre_id_77d7ffde_fk_catalog_genre_id FOREIGN KEY (genre_id) REFERENCES public.catalog_genre(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: catalog_bookinstance catalog_bookinstance_book_id_69f93415_fk_catalog_book_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.catalog_bookinstance
+    ADD CONSTRAINT catalog_bookinstance_book_id_69f93415_fk_catalog_book_id FOREIGN KEY (book_id) REFERENCES public.catalog_book(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: locallibrary
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
